@@ -32,14 +32,28 @@ Remove all your stacks and all of their resources from AWS. Or optionally remove
 
 Runs your tests using Jest. Takes all the [Jest CLI options](https://jestjs.io/docs/en/cli).
 
-## Documentation
+## Create Cognito account
 
-Learn more about the Serverless Stack.
 
-- [Docs](https://docs.serverless-stack.com)
-- [@serverless-stack/cli](https://docs.serverless-stack.com/packages/cli)
-- [@serverless-stack/resources](https://docs.serverless-stack.com/packages/resources)
+```bash
+aws cognito-idp sign-up --region eu-central-1 --client-id xxx --username some@email.com --password Passw0rd!
+```
 
-## Community
+```bash
+aws cognito-idp admin-confirm-sign-up --region eu-central-1 --user-pool-id xxx --username some@email.com
+```
 
-[Follow us on Twitter](https://twitter.com/ServerlessStack) or [post on our forums](https://discourse.serverless-stack.com).
+## Create Note
+
+```bash
+npx aws-api-gateway-cli-test --username="some@email.com" --password="Passw0rd!"  --user-pool-id="xxx" --app-client-id="xxx" --cognito-region="eu-central-1" --identity-pool-id="xxx"  --invoke-url="xxx" --api-gateway-region="eu-central-1" --path-template="/notes" --method="POST" --body="{\"content\":\"Hello World\"}"
+```
+
+## Get Note
+```bash
+npx aws-api-gateway-cli-test --username="some@email.com" --password="Passw0rd!"  --user-pool-id="xxx" --app-client-id="xxx" --cognito-region="eu-central-1" --identity-pool-id="xxx"  --invoke-url="xxx" --api-gateway-region="eu-central-1" --path-template="/notes/xxx" --method="GET"
+```
+## Delete Note
+```bash
+npx aws-api-gateway-cli-test --username="some@email.com" --password="Passw0rd!"  --user-pool-id="xxx" --app-client-id="xxx" --cognito-region="eu-central-1" --identity-pool-id="xxx"  --invoke-url="xxx" --api-gateway-region="eu-central-1" --path-template="/notes/xxx" --method="DELETE"
+```
