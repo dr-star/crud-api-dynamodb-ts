@@ -11,7 +11,7 @@ export async function main(event: any) {
     const params: DocumentClient.PutItemInput = {
         TableName: !process.env.tableName ? '' : process.env.tableName,
         Item: {
-            userId: "123",
+            userId: event.requestContext.authorizer.iam.cognitoIdentity.identityId,
             noteId: v1(),
             content: data.content,
             createdAt: Date.now(),

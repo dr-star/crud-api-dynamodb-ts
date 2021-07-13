@@ -8,12 +8,14 @@ export async function main(event: any) {
     const params: DocumentClient.DeleteItemInput = {
         TableName: !process.env.tableName ? '' : process.env.tableName,
         Key: {
-            userId: "123",
+            userId: event.requestContext.authorizer.iam.cognitoIdentity.identityId,
             noteId: event.pathParameters.id,
         },
     };
 
-    await dynamoDb.delete(params).promise();
+    const result = await dynamoDb.delete(params).promise();
+
+    console.log(result );
 
     return {
         statusCode: 200,
